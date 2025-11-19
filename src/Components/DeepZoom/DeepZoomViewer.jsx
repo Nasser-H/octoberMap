@@ -11,7 +11,7 @@ export default function DeepZoomViewer({dziSource , marks , OverlayMarker, maxZo
       prefixUrl: "https://openseadragon.github.io/openseadragon/images/",
       tileSources: dziSource,
       showNavigator: false,
-      animationTime: 0.7,
+      animationTime: 0.75,
       blendTime: 0.15,
       zoomPerScroll: 1.2,
       minZoomLevel: 1,
@@ -31,7 +31,7 @@ export default function DeepZoomViewer({dziSource , marks , OverlayMarker, maxZo
       homeFillsViewer: true,
       autoResize: true,
       background: 'black',
-      visibilityRatio: 0.9,
+      visibilityRatio: 1,
       minZoomImageRatio: 0.7,
       drawerOptions: {
         webgl: false,
@@ -60,97 +60,97 @@ async function markerPins() {
   const bigImageWidth = tiledImage.source.dimensions.x;
   const bigImageHeight = tiledImage.source.dimensions.y;
 
-  marks.forEach((mark) => {
+//   marks.forEach((mark) => {
 
-    const wrapper = document.createElement('div');
-    wrapper.id = `${mark.name}-${mark.id}`;
-    wrapper.className = `marker-${mark.name}-${mark.id} group cursor-pointer`;
-    wrapper.dataset.id = mark.id;
+//     const wrapper = document.createElement('div');
+//     wrapper.id = `${mark.name}-${mark.id}`;
+//     wrapper.className = `marker-${mark.name}-${mark.id} group cursor-pointer`;
+//     wrapper.dataset.id = mark.id;
 
-    const root = createRoot(wrapper);
+//     const root = createRoot(wrapper);
 
-    root.render(
-      <OverlayMarker
-        mark={mark}
-        bigImageWidth={bigImageWidth}
-        bigImageHeight={bigImageHeight}
-        ZoneOnLoad={(naturalWidth, naturalHeight) => {
-          if (!naturalWidth || !naturalHeight) {
-            console.warn("IMAGE DID NOT LOAD PROPERLY FOR: ", mark.name);
-            return;
-          }
+//     root.render(
+//       <OverlayMarker
+//         mark={mark}
+//         bigImageWidth={bigImageWidth}
+//         bigImageHeight={bigImageHeight}
+//         ZoneOnLoad={(naturalWidth, naturalHeight) => {
+//           if (!naturalWidth || !naturalHeight) {
+//             console.warn("IMAGE DID NOT LOAD PROPERLY FOR: ", mark.name);
+//             return;
+//           }
 
-          const width = naturalWidth / bigImageWidth;
-          const height = naturalHeight / bigImageHeight;
-          viewer.addOverlay({
-            element: wrapper,
-            location: new OpenSeadragon.Point(
-              mark.zone.coordinate_x,
-              mark.zone.coordinate_y
-            ),
-            placement: OpenSeadragon.Placement.CENTER,
-            width,
-            height
-          });
-            // interact(wrapper).draggable({
-            //     listeners: {
-            //       start () {
-            //         viewer.gestureSettingsMouse.dragToPan = false;
-            //       },
-            //       end(event){
-            //           const point = new OpenSeadragon.Point(event.clientX, event.clientY);
-            //           viewer.gestureSettingsMouse.dragToPan = true;
-            //         },
-            //         move (event) {
-            //           const point = new OpenSeadragon.Point(event.clientX, event.clientY);
-            //           const viewportPoint = viewer.viewport.pointFromPixel(point);              
-            //           viewer.updateOverlay(wrapper, viewportPoint);
-            //         },
-            //     }
-            // });  
-new OpenSeadragon.MouseTracker({
-  element: wrapper,
-  pressHandler: function(event) {
-    wrapper.startPos = event.position.clone(); // حفظ نقطة البداية
-  },
-  releaseHandler: function(event) {
-    // حساب المسافة
-    const dx = event.position.x - wrapper.startPos.x;
-    const dy = event.position.y - wrapper.startPos.y;
-    const distance = Math.sqrt(dx*dx + dy*dy);
+//           const width = naturalWidth / bigImageWidth;
+//           const height = naturalHeight / bigImageHeight;
+//           viewer.addOverlay({
+//             element: wrapper,
+//             location: new OpenSeadragon.Point(
+//               mark.zone.coordinate_x,
+//               mark.zone.coordinate_y
+//             ),
+//             placement: OpenSeadragon.Placement.CENTER,
+//             width,
+//             height
+//           });
+//             // interact(wrapper).draggable({
+//             //     listeners: {
+//             //       start () {
+//             //         viewer.gestureSettingsMouse.dragToPan = false;
+//             //       },
+//             //       end(event){
+//             //           const point = new OpenSeadragon.Point(event.clientX, event.clientY);
+//             //           viewer.gestureSettingsMouse.dragToPan = true;
+//             //         },
+//             //         move (event) {
+//             //           const point = new OpenSeadragon.Point(event.clientX, event.clientY);
+//             //           const viewportPoint = viewer.viewport.pointFromPixel(point);              
+//             //           viewer.updateOverlay(wrapper, viewportPoint);
+//             //         },
+//             //     }
+//             // });  
+// new OpenSeadragon.MouseTracker({
+//   element: wrapper,
+//   pressHandler: function(event) {
+//     wrapper.startPos = event.position.clone(); // حفظ نقطة البداية
+//   },
+//   releaseHandler: function(event) {
+//     // حساب المسافة
+//     const dx = event.position.x - wrapper.startPos.x;
+//     const dy = event.position.y - wrapper.startPos.y;
+//     const distance = Math.sqrt(dx*dx + dy*dy);
 
-    const clickThreshold = 5; // البكسل اللي يعتبر click حقيقي
-    if (distance > clickThreshold) return; // تجاهل الحركة
+//     const clickThreshold = 5; // البكسل اللي يعتبر click حقيقي
+//     if (distance > clickThreshold) return; // تجاهل الحركة
 
-    // click فعلي
-    event.preventDefaultAction = true;
-    const overlay = viewer.getOverlayById(wrapper.id || wrapper);
-    if (!overlay) return;
+//     // click فعلي
+//     event.preventDefaultAction = true;
+//     const overlay = viewer.getOverlayById(wrapper.id || wrapper);
+//     if (!overlay) return;
 
-    const position = overlay.location;
-    const newData = {
-      x: position.x,
-      y: position.y
-    };
-    if(mark.navigate_to && mark.targetZoom){
-      const point = new OpenSeadragon.Point(mark.zone.coordinate_x, mark.zone.coordinate_y);
-      viewer.viewport.panTo(point, false);
-      viewer.viewport.zoomTo(mark.targetZoom , point, false);
-      const onFinish = () => {
-        setTimeout(() => {
-          viewer.removeHandler("animation-start", onFinish);
-        }, 700);
-      };      
-      viewer.addHandler("animation-start", onFinish);
-      console.log("Marker clicked:", newData);
-    }
-  }
-});
+//     const position = overlay.location;
+//     const newData = {
+//       x: position.x,
+//       y: position.y
+//     };
+//     if(mark.navigate_to && mark.targetZoom){
+//       const point = new OpenSeadragon.Point(mark.zone.coordinate_x, mark.zone.coordinate_y);
+//       viewer.viewport.panTo(point, false);
+//       viewer.viewport.zoomTo(mark.targetZoom , point, false);
+//       const onFinish = () => {
+//         setTimeout(() => {
+//           viewer.removeHandler("animation-start", onFinish);
+//         }, 700);
+//       };      
+//       viewer.addHandler("animation-start", onFinish);
+//       console.log("Marker clicked:", newData);
+//     }
+//   }
+// });
 
-        }}
-      />
-    );
-  });
+//         }}
+//       />
+//     );
+//   });
 }
 
 
