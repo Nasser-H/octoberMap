@@ -61,8 +61,7 @@ function App() {
         }
     ];    
   return <>
-
-  <DeepZoomViewer dziSource="./assets/EgyptMap/egyptMap.dzi" maxZoomLevel={15} marks={[]} OverlayMarker={OverlayMarker2}/>
+  <DeepZoomViewer dziSource="./assets/EgyptMap/OctoberMap.dzi" maxZoomLevel={15} marks={[]} OverlayMarker={OverlayMarker2}/> 
   </>
 }
 
