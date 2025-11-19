@@ -11,7 +11,7 @@ export default function DeepZoomViewer({dziSource , marks , OverlayMarker, maxZo
       prefixUrl: "https://openseadragon.github.io/openseadragon/images/",
       tileSources: dziSource,
       showNavigator: false,
-      animationTime: 0.75,
+      animationTime: 0,
       blendTime: 0.15,
       zoomPerScroll: 1.2,
       minZoomLevel: 1,
