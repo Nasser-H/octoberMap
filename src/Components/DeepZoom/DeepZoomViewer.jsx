@@ -11,14 +11,18 @@ export default function DeepZoomViewer({dziSource , marks , OverlayMarker, maxZo
       prefixUrl: "https://openseadragon.github.io/openseadragon/images/",
       tileSources: dziSource,
       showNavigator: false,
-      animationTime: 1,
+      animationTime: 1.2,
       blendTime: 0.5,
       zoomPerScroll: 1.2,
       minZoomLevel: 1,
       maxZoomLevel: maxZoomLevel || 5,
-      maxZoomPixelRatio: 10,
-      tileCacheSize: 0,
-      maxImageCacheCount: 0,
+      //
+      timeout: 120000,
+      preserveImageSizeOnResize: true,
+      imageLoaderLimit: 8,
+      maxZoomPixelRatio: 2,
+      tileCacheSize: 500,
+      maxImageCacheCount: 500,
       loadTilesWithAjax: false,
       constrainDuringPan: true,
       debugMode: false,
@@ -28,7 +32,7 @@ export default function DeepZoomViewer({dziSource , marks , OverlayMarker, maxZo
       autoResize: true,
       background: 'black',
       visibilityRatio: 1,
-      minZoomImageRatio: 1,
+      minZoomImageRatio: 0.8,
       drawerOptions: {
         webgl: true,
         canvas: true,
@@ -131,7 +135,7 @@ new OpenSeadragon.MouseTracker({
     if(mark.navigate_to && mark.targetZoom){
       const point = new OpenSeadragon.Point(mark.zone.coordinate_x, mark.zone.coordinate_y);
       viewer.viewport.panTo(point, false);
-      viewer.viewport.zoomTo(mark.targetZoom, point, false);
+      viewer.viewport.zoomTo(mark.targetZoom , point, false);
       const onFinish = () => {
         setTimeout(() => {
           viewer.removeHandler("animation-start", onFinish);
@@ -167,10 +171,13 @@ new OpenSeadragon.MouseTracker({
         }
         viewport.zoomTo(targetZoom, null, false);
         viewport.panTo(viewport.getHomeBounds().getCenter(), false);
-        viewer.viewport.minZoomLevel = targetZoom;
+        viewer.viewport.minZoomLevel = targetZoom ;
+        // viewer.viewport.maxZoomLevel = targetZoom ;
         viewport.applyConstraints();
     }   
     viewer.addHandler("open", fillScreen);
+    viewer.addHandler("animation", ()=>{console.log(viewer.viewport.getZoom());
+    });
     viewer.addHandler("animation-finish", () => viewer.viewport.applyConstraints());
     viewer.addHandler("animation-start", () => viewer.viewport.applyConstraints());
     viewer.addHandler("animation", () => viewer.viewport.applyConstraints());

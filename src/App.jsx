@@ -13,7 +13,7 @@ function App() {
             "coordinate_y": -17 ,
             "country_map_img": "storage/assets/images/countries/maps/deepzoomfolders/690bc465814e31762378853/output_tiles5.dzi",
             "navigate_to": "cairo/october-map",
-            "targetZoom": 2,
+            "targetZoom": 15,
             "flag_icon": "assets/EgyptMap/media/Cairo.svg",
             "flag": "assets/tiles7/EgyptFlage.svg",
             "world_id": 1,
