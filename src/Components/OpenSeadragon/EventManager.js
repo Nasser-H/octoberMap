@@ -28,27 +28,30 @@ export class EventManager {
       });
     });
     this.viewer.addHandler("open", () => {
-  
-               const item = this.viewer.world.getItemAt(0);
-         const viewport = this. viewer.viewport;
-         if (!item || !viewport) return;
-         const imageBounds = item.getBounds();
-         const imageAspect = imageBounds.width / imageBounds.height;
-         const containerSize = viewport.getContainerSize();
-         const containerAspect = containerSize.x / containerSize.y;
-         let zoom,targetZoom;
-         if (imageAspect > containerAspect) {
-             zoom = containerAspect / imageAspect; // fit width
-             targetZoom = viewport.getHomeZoom() / zoom;
-         } else {
-             targetZoom = viewport.getHomeZoom();
-         }
-         viewport.zoomTo(targetZoom, null, false);
-         viewport.panTo(viewport.getHomeBounds().getCenter(), false);
-         this.viewer.viewport.minZoomLevel = targetZoom ;
-         // this.viewer.viewport.maxZoomLevel = targetZoom ;
-         viewport.applyConstraints();
-     });
+
+      const item = this.viewer.world.getItemAt(0);
+      const viewport = this.viewer.viewport;
+      if (!item || !viewport) return;
+      const imageBounds = item.getBounds();
+      const imageAspect = imageBounds.width / imageBounds.height;
+      const containerSize = viewport.getContainerSize();
+      const containerAspect = containerSize.x / containerSize.y;
+      let zoom, targetZoom;
+      if (imageAspect > containerAspect) {
+        zoom = containerAspect / imageAspect; // fit width
+        targetZoom = viewport.getHomeZoom() / zoom;
+      } else {
+        targetZoom = viewport.getHomeZoom();
+      }
+      viewport.zoomTo(targetZoom, null, false);
+      viewport.panTo(viewport.getHomeBounds().getCenter(), false);
+      this.viewer.viewport.minZoomLevel = targetZoom;
+      // this.viewer.viewport.maxZoomLevel = targetZoom ;
+      viewport.applyConstraints();
+    });
+    this.viewer.addHandler("animation-finish", () => this.viewer.viewport.applyConstraints());
+    this.viewer.addHandler("animation-start", () => this.viewer.viewport.applyConstraints());
+    this.viewer.addHandler("animation", () => this.viewer.viewport.applyConstraints());
   }
 
   onMarkerClick(id) {
