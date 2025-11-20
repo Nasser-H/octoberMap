@@ -18,7 +18,7 @@ return OpenSeadragon({
       imageLoaderLimit: 8,
       maxZoomPixelRatio: 2,
       // tileCacheSize: 500,
-      maxImageCacheCount: 700,
+      maxImageCacheCount: 1000,
       loadTilesWithAjax: false,
       constrainDuringPan: true,
       debugMode: false,
