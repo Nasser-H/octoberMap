@@ -1,6 +1,7 @@
 // MarkerManager.js
 import { createRoot } from "react-dom/client";
 import OpenSeadragon from "openseadragon";
+import React from "react";
 
 export class MarkerManager {
   constructor(viewer) {
@@ -16,7 +17,7 @@ export class MarkerManager {
 
     // React render
     const root = createRoot(div);
-    root.render(<Component mark={markerData} />);
+    root.render(React.createElement(Component, { mark: markerData }));
 
     // Store reference
     this.markers.set(markerData.id, { div, root, data: markerData });

@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import './App.css'
-import DeepZoomViewer from './Components/DeepZoom/DeepZoomViewer';
+// import DeepZoomViewer from './Components/DeepZoom/DeepZoomViewer';
 import OverlayMarker2 from './Components/OverlayMarker2/OverlayMarker2';
 import OverlayMarker from './Components/OpenSeadragon/OverlayMarker';
-// import DeepZoomViewer from './Components/OpenSeadragon/DeepZoomViewer';
+import DeepZoomViewer from './Components/OpenSeadragon/DeepZoomViewer';
 
 function App() {
   const marks = [
@@ -63,7 +63,7 @@ function App() {
         }
     ];    
   return <>
-  <DeepZoomViewer dziSource="./assets/OctoberMap/OctoberMap.dzi"  /> 
+  <DeepZoomViewer dziSource="./assets/OctoberMap/OctoberMap.dzi" maxZoomLevel={25} marks={marks} OverlayMarker={OverlayMarker} /> 
   </>
 }
 
