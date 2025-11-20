@@ -25,7 +25,7 @@ export function initViewer(container, dziSource, maxZoomLevel = 5) {
     
     // Animation settings
     springStiffness: 6.5,
-    immediateRender: false,
+    immediateRender: true,
 
     // UI
     showNavigator: false,
