@@ -2,47 +2,63 @@
 import OpenSeadragon from "openseadragon";
 
 export function initViewer(container, dziSource, maxZoomLevel = 5) {
-return OpenSeadragon({
-  element: container,
-  prefixUrl: "https://openseadragon.github.io/openseadragon/images/",
-  tileSources: dziSource,
+  return OpenSeadragon({
+    element: container,
+    prefixUrl: "https://openseadragon.github.io/openseadragon/images/",
+    tileSources: dziSource,
 
-  // Performance
-  animationTime: 0.9,
-  blendTime: 0.15,
-  imageLoaderLimit: 20,
-  tileCacheSize: 500,
-  maxImageCacheCount: 2000,
-  maxZoomPixelRatio: 1.1,
+    // UNIVERSAL PERFORMANCE SETTINGS
+    animationTime: deviceConfig.animationTime,
+    blendTime: 0.15,
+    imageLoaderLimit: deviceConfig.imageLoaderLimit,
+    tileCacheSize: deviceConfig.tileCacheSize,
+    maxImageCacheCount: deviceConfig.maxImageCacheCount,
+    maxZoomPixelRatio: deviceConfig.maxZoomPixelRatio,
+    minZoomLevel: deviceConfig.minZoomLevel,
+    maxZoomLevel,
+    homeFillsViewer: true,
+    preserveImageSizeOnResize: false,
+    springStiffness: deviceConfig.springStiffness,
+    immediateRender: false,
+    defaultZoomLevel: 1,
+    visibilityRatio: 1,
 
-  // Zoom & Pan
-  zoomPerScroll: 1.2,
-  minZoomLevel: 1,
-  maxZoomLevel,
-  homeFillsViewer: true,
-  preserveImageSizeOnResize: false,
+    // RENDERER CONFIG
+    drawerOptions: {
+      webgl: true,
+      webglOptions: {
+        preserveDrawingBuffer: false,
+        antialias: false,
+      },
+      // fallback to canvas automatically if WebGL fails
+    },
 
-  // Animation (smoothness)
-  springStiffness: 5,
-  immediateRender: false,
-  defaultZoomLevel: 1,
-  visibilityRatio: 1,
+    // INPUT CONTROLS
+    gestureSettingsMouse: {
+      clickToZoom: false,
+      dblClickToZoom: true,
+      scrollToZoom: true,
+      pinchToZoom: true,
+      flickEnabled: false,
+    },
 
-  // Renderer
-  drawerOptions: {
-    webgl: true,
-    canvas: false,
-  },
+    // TOUCH CONTROLS (mobile/tablet)
+    gestureSettingsTouch: {
+      clickToZoom: false,
+      dblClickToZoom: false,
+      dragToPan: true,
+      flickEnabled: true,
+      flickMomentum: 0.25,
+      scrollToZoom: false, // prevents accidental zoom
+      pinchToZoom: true,
+    },
 
-  gestureSettingsMouse: {
-    clickToZoom: false,
-    dblClickToZoom: true,
-  },
-
-  showNavigator: false,
-  showNavigationControl: true,
-  background: "black",
-});
+    // UI
+    showNavigator: !isMobile,
+    showNavigationControl: !isMobile, // hide on phone
+    autoResize: true,
+    background: "black",
+  });
   // return OpenSeadragon({
   //   element: container,
   //   prefixUrl: "https://openseadragon.github.io/openseadragon/images/",
