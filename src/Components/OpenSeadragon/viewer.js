@@ -46,11 +46,11 @@ export function initViewer(container, dziSource, maxZoomLevel = 5) {
     gestureSettingsTouch: {
       clickToZoom: false,
       dblClickToZoom: false,
-      dragToPan: true,
-      flickEnabled: true,
+      dragToPan: false,
+      flickEnabled: false,
       flickMomentum: 0.25,
       scrollToZoom: false, // prevents accidental zoom
-      pinchToZoom: true,
+      pinchToZoom: false,
     },
 
     // UI
