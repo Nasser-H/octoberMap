@@ -4,45 +4,50 @@ import OpenSeadragon from "openseadragon";
 export function initViewer(container, dziSource, maxZoomLevel = 5) {
 return OpenSeadragon({
   element: container,
-  prefixUrl: "https://openseadragon.github.io/openseadragon/images/",
-  tileSources: dziSource,
-
-  // Performance
-  animationTime: 0.9,
-  blendTime: 0.15,
-  imageLoaderLimit: 20,
-  tileCacheSize: 500,
-  maxImageCacheCount: 2000,
-  maxZoomPixelRatio: 1.1,
-
-  // Zoom & Pan
-  zoomPerScroll: 1.2,
-  minZoomLevel: 1,
-  maxZoomLevel,
-  homeFillsViewer: true,
-  preserveImageSizeOnResize: false,
-
-  // Animation (smoothness)
-  springStiffness: 5,
-  immediateRender: false,
-  defaultZoomLevel: 1,
-  visibilityRatio: 1,
-
-  // Renderer
-  drawerOptions: {
-    webgl: true,
-    canvas: false,
-  },
-
-  gestureSettingsMouse: {
-    clickToZoom: false,
-    dblClickToZoom: true,
-  },
-
-  showNavigator: false,
-  showNavigationControl: true,
-  background: "black",
-});
+      prefixUrl: "https://openseadragon.github.io/openseadragon/images/",
+      tileSources: dziSource,
+      showNavigator: false,
+      animationTime: 0.75,
+      blendTime: 0.15,
+      zoomPerScroll: 1.2,
+      minZoomLevel: 1,
+      maxZoomLevel: maxZoomLevel || 5,
+      //
+      timeout: 120000,
+      preserveImageSizeOnResize: true,
+      imageLoaderLimit: 8,
+      maxZoomPixelRatio: 2,
+      tileCacheSize: 80,
+      maxImageCacheCount: 80,
+      loadTilesWithAjax: false,
+      constrainDuringPan: true,
+      debugMode: false,
+      defaultZoomLevel: 1,
+      navigationControlAnchor: OpenSeadragon.ControlAnchor.TOP_RIGHT,
+      homeFillsViewer: true,
+      autoResize: true,
+      background: 'black',
+      visibilityRatio: 1,
+      minZoomImageRatio: 0.7,
+      drawerOptions: {
+        webgl: false,
+        canvas: true,
+      },
+      smoothTileEdgesMinZoom: 0,
+      gestureSettingsMouse: {
+        clickToZoom: false,
+        dblClickToZoom: true,
+      },
+      showNavigationControl: true,
+      showZoomControl: true,
+      showHomeControl: true,
+      showFullPageControl: true,
+      showRotationControl: true,
+      showFlipControl: true,
+      showSequenceControl: true,
+      rotateRightButton: null,
+      rotateLeftButton: null,
+    });
   // return OpenSeadragon({
   //   element: container,
   //   prefixUrl: "https://openseadragon.github.io/openseadragon/images/",
