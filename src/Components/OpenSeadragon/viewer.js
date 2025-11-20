@@ -17,8 +17,8 @@ return OpenSeadragon({
       preserveImageSizeOnResize: false,
       imageLoaderLimit: 8,
       maxZoomPixelRatio: 2,
-      tileCacheSize: 80,
-      maxImageCacheCount: 80,
+      // tileCacheSize: 500,
+      maxImageCacheCount: 700,
       loadTilesWithAjax: false,
       constrainDuringPan: true,
       debugMode: false,
@@ -31,8 +31,8 @@ return OpenSeadragon({
       visibilityRatio: 1,
       minZoomImageRatio: 0.7,
       drawerOptions: {
-        webgl: false,
-        canvas: true,
+        webgl: true,
+        canvas: false,
       },
       smoothTileEdgesMinZoom: 1.25,
       gestureSettingsMouse: {
