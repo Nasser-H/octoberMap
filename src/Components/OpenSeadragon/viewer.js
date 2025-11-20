@@ -25,6 +25,7 @@ return OpenSeadragon({
       defaultZoomLevel: 1,
       navigationControlAnchor: OpenSeadragon.ControlAnchor.TOP_RIGHT,
       homeFillsViewer: true,
+          immediateRender: false,
       autoResize: true,
       background: 'black',
       visibilityRatio: 1,
