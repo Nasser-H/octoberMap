@@ -2,6 +2,8 @@
 import OpenSeadragon from "openseadragon";
 
 export function initViewer(container, dziSource, maxZoomLevel = 5) {
+  const isMobile = /Android|iPhone/.test(navigator.userAgent);
+
 return OpenSeadragon({
   element: container,
       prefixUrl: "https://openseadragon.github.io/openseadragon/images/",
@@ -31,6 +33,7 @@ return OpenSeadragon({
       autoResize: true,
       background: 'black',
       visibilityRatio: 1,
+      useWebGL: !isMobile,
       minZoomImageRatio: 0.7,
       drawerOptions: {
         webgl: false,
