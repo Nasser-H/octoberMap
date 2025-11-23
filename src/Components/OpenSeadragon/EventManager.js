@@ -1,26 +1,13 @@
 // EventManager.js
 export class EventManager {
-  constructor(viewer, markerManager, container) {
+  constructor(viewer, markerManager) {
     this.viewer = viewer;
     this.markers = markerManager;
-    this.container = container;
 
     this.attach();
   }
 
   attach() {
-    // Add dragging class for performance
-    this.container.classList.add('openseadragon-container');
-    
-    // Add dragging state for CSS optimization
-    this.viewer.addHandler('canvas-drag', () => {
-      this.container.classList.add('dragging');
-    });
-
-    this.viewer.addHandler('canvas-drag-end', () => {
-      this.container.classList.remove('dragging');
-    });
-
     this.viewer.addHandler("canvas-click", (ev) => {
       const clickedElement = ev.originalEvent.target;
 
@@ -38,8 +25,6 @@ export class EventManager {
           "--marker-scale",
           Math.min(zoom * 0.5, 2)
         );
-        // Optimize overlay updates
-        this.viewer.forceRedraw();
       });
     });
     this.viewer.addHandler("open", () => {
