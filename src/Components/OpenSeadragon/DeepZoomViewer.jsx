@@ -14,7 +14,7 @@ export default function DeepZoomViewer({ dziSource, marks , OverlayMarker, maxZo
       marks.forEach(m => markerManager.addMarker(m, OverlayMarker));
     });
 
-    new EventManager(viewer, markerManager);
+    new EventManager(viewer, markerManager, viewerRef.current);
 
     return () => {
       markerManager.clear();
