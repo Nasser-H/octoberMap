@@ -1,0 +1,3 @@
+--suffix ".jpg[Q=80]" // 
+--tile-size 512 //
+--overlap 1

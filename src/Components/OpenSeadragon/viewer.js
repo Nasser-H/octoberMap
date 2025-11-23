@@ -36,7 +36,7 @@ return OpenSeadragon({
       },
       // mobile
       imageSmoothingEnabled: true,
-      springStiffness: 60,
+      springStiffness: 1,
       smoothTileEdgesMinZoom: 1.25,
       gestureSettingsTouch: {
         pinchRotate: false,

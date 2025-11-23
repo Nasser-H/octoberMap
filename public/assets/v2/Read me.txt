@@ -1,0 +1,3 @@
+--suffix ".jpg[Q=70, optimize-coding=1]"//
+--tile-size 256 //
+--overlap 1
